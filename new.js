@@ -1,6 +1,6 @@
 const fs = require('fs'); // file system -- allows us to modify files
 const http = require('http'); // create server and listen for HTTP requests
-const { Http2ServerRequest } = require('http2');
+const {Http2ServerRequest} = require('http2'); 
 const url = require('url'); // routing URL's based on the HTTP request
 
 ////////////////
@@ -52,9 +52,9 @@ const server = http.createServer((req, res) => {
     const pathName = req.url; // url name of the HTTP request
 
     if (pathName === '/' || pathName === "/overivew") {
-        console.log("This is OVERVIEW");
+        res.end("This is OVERVIEW");
     } else if (pathName === '/product') {
-        console.log("This is PRODUCT");
+        res.end("This is PRODUCT");
     } else if (pathName === '/api') {
 
         // sends a response header to the request; doesn't relate to the content
