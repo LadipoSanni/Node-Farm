@@ -1,6 +1,6 @@
 const fs = require('fs'); // file system -- allows us to modify files
 const http = require('http'); // create server and listen for HTTP requests
-const {Http2ServerRequest} = require('http2'); 
+// const {Http2ServerRequest} = require('http2'); 
 const url = require('url'); // routing URL's based on the HTTP request
 
 ////////////////
