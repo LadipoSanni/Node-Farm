@@ -15,9 +15,9 @@
 
     <title>{%PRODUCTNAME%} {%IMAGE%} /// NODE FARM</title>
 
-    <!-- inline styling so that we don't need to make multiple requests to getting the different data -->
-    <!-- such that each different file will trigger a different request -->
-    <!-- each part of the website will get its own request -->
+    <!-- Inline CSS so that we don't need to make multiple requests to get new/different sets of data.
+         Each file will trigger a different request.
+     -->
     <style>
       *,
       *::before,
@@ -273,8 +273,7 @@
       <h1>🌽 Node Farm 🥦</h1>
 
       <figure class="product">
-        <!-- some elements are organic and some aren't
-              so we can add
+        <!-- some elements are organic and some aren't, so add a placeholder for the not organic state.
         -->
         <div class="product__organic {%NOT_ORGANIC%}"><h5>Organic</h5></div>
         <a href="#" class="product__back">
