@@ -3,6 +3,9 @@ const http = require('http'); // create server and listen for HTTP requests
 // const {Http2ServerRequest} = require('http2'); 
 const url = require('url'); // routing URL's based on the HTTP request
 
+// Imports usually happen at the top of the file and after the core modules
+const replaceTemplate = require('./modules/replaceTemplate'); // we do not need to specify .js
+
 ////////////////
 /// FILES
 
@@ -49,27 +52,6 @@ fs.readFile(`${__dirname}/txt/start.txt`, 'utf-8', (err, data) => {
 ////////////////
 /// SERVER
 
-const replaceTemplate = (temp, product) => {
-
-    // Use RegExp / /g which means all instances of the same placeholders will get replaced, and not just the first one that occurs (so using single quotes '' would only target the first placeholder)
-
-    // Not good practice to directly manipulate the arguments, so a new variable is created which can be manipulated going forward for future/different placeholders. 
-    
-    // Replacing the placeholders in our template code with the data from the JSON file
-    let output = temp.replace(/{%PRODUCTNAME%}/g, product.productName); 
-    output = output.replace(/{%IMAGE%}/g, product.image);
-    output = output.replace(/{%PRICE%}/g, product.price);
-    output = output.replace(/{%FROM%}/g, product.from);
-    output = output.replace(/{%NUTRIENTS%}/g, product.nutrients);
-    output = output.replace(/{%QUANTITY%}/g, product.quantity);
-    output = output.replace(/{%DESCRIPTION%}/g, product.description);
-    output = output.replace(/{%ID%}/g, product.id);
-    
-    // The placeholder is located as a class so when the product is not organic, the placeholder will be replaced with the .not-organic class and whatever CSS styling may be applied.
-    if (!product.organic) output = output.replace(/{%NOT_ORGANIC%}/g, 'not-organic');
-
-    return output; // This is a function. Don't forget to return the output variable. 
-}
 // Reading template HTML code synchronously. The code is top-level code so is read once at the start of the application and not repeated since the code is not within the callback function. 
 const tempOverview = fs.readFileSync(`${__dirname}/templates/template-overview.html`, 'utf-8');
 const tempCard = fs.readFileSync(`${__dirname}/templates/template-card.html`, 'utf-8');
