@@ -81,10 +81,24 @@ const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, 'utf-8');
 const dataObj = JSON.parse(data); // Array of all the objects in data.json
 
 const server = http.createServer((req, res) => {
-    const pathName = req.url; // url name of the HTTP request
+
+    // Note: req.url() is the URL name of the HTTP request
+    // url.parse() returns an object with different queries.
+    // In our case, we have queries named 'query' and 'pathname' which represent the `id` and the `pathname` of that URL.
+    // Therefore, two variables called 'query' and 'pathname' will be created with the respective values of the queries saved within these variables.
+    
+    // The query is an object, and by definition means 'a request for data or information from a database table or combination of tables'
+    const { query, pathname } = url.parse(req.url, true);
 
     // Overview page
-    if (pathName === '/' || pathName === "/overview") {
+    // Previously, by saying "pathName === '/product'", we're calling the JSON property which we can't just simply call and so this comparison won't work. 
+    // Therefore, the thread will jump down to the else statement and say "Page not found". 
+    
+    // So to make the URL routing work, we need to parse the URL link of the HTTP request.
+    // Given that we've hard-coded the URL link to be for the product page to be '/product?id={%ID%}' where {%ID%} is the placeholder.
+    // req.url will return '/product?id=0' for example.
+
+    if (pathname === '/' || pathname === "/overview") {
         // Whenever the URL goes to '127.0.0.1:8000/' or '127.0.0.1:8000/overview', we need to read the template overview.
         // Reading the file every time there is a new request is pretty inefficient, so we should read the code once synchronously when the application starts up. We can do this by reading it outside of the callback function as top-level code, such that whenever we need the file we can just simply call it. 
 
@@ -110,11 +124,17 @@ const server = http.createServer((req, res) => {
         res.end(output);
     
     // Product page
-    } else if (pathName === '/product') {
-        res.end("This is PRODUCT");
+    } else if (pathname === '/product') {
+        res.writeHead(200, {'content-type': 'text/html'}); // New URL link, so need to restate content-type and status code again.
+        // Retrieving the product that we want to display
+        // Note: query returns an object in the format of [Object: null prototype] { id: '0' }
+        const product = dataObj[query.id];
+        const output = replaceTemplate(tempProduct, product);
+
+        res.end(output); // Finally, send the output 
 
     // API
-    } else if (pathName === '/api') {
+    } else if (pathname === '/api') {
 
         // sends a response header to the request; doesn't relate to the content
         res.writeHead(200, {'content-type': 'application/json'}); // telling browser that the data being sent over is going to be JSON
