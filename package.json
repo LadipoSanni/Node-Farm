@@ -1,0 +1,22 @@
+{
+  "name": "node-farm",
+  "version": "1.0.0",
+  "description": "Learning node.js",
+  "main": "new.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/subtlewow/Node-Farm.git"
+  },
+  "author": "Marlon Chhour",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/subtlewow/Node-Farm/issues"
+  },
+  "homepage": "https://github.com/subtlewow/Node-Farm#readme",
+  "dependencies": {
+    "slugify": "^1.6.3"
+  }
+}
