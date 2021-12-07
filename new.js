@@ -136,6 +136,8 @@ const server = http.createServer((req, res) => {
 
 // To run local host in broswer -- '127.0.0.1:8000'
 // Listens for HTTP requests on port 8000
-server.listen(8000, '127.0.0.1', () => {
+const PORT = process.env.PORT || 8000;
+
+server.listen(PORT, '127.0.0.1', () => {
     console.log("Listening to local host...");
 });
